@@ -3,7 +3,9 @@ package com.struggle.datasource.schedule;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.CanalEntry.Entry;
+import com.alibaba.otter.canal.protocol.CanalEntry.EventType;
 import com.alibaba.otter.canal.protocol.Message;
+import com.struggle.datasource.event.CanalUpdateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
@@ -37,8 +39,8 @@ public class CanalScheduling implements Runnable, ApplicationContextAware {
                 if (batchId != -1 && entries.size() > 0) {
                     entries.forEach(entry -> {
                         if (entry.getEntryType() == CanalEntry.EntryType.ROWDATA) {
-                        //Send Event to listener
                             //TODO: send event to the listener
+                            publishEvent(entry);
                         }
                     });
                 }
@@ -56,5 +58,17 @@ public class CanalScheduling implements Runnable, ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    private void publishEvent(Entry entry){
+        EventType type = entry.getHeader().getEventType();
+        switch (type){
+            case UPDATE:
+                applicationContext.publishEvent(new CanalUpdateEvent(entry));
+                break;
+             default:
+                 break;
+        }
+
     }
 }

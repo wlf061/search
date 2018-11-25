@@ -14,4 +14,9 @@ public abstract  class CanalAbstractEvent extends ApplicationEvent{
     public CanalAbstractEvent(Entry source) {
         super(source);
     }
+
+    public Entry getEntry(){
+        return (Entry)this.source;
+    }
+
 }
