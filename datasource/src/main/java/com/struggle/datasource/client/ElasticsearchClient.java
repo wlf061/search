@@ -28,7 +28,7 @@ public class ElasticsearchClient implements DisposableBean {
     @Bean
     public TransportClient getTransportClient() throws Exception {
         Settings settings = Settings.builder().put("cluster.name", clusterName)
-                .put("client.transport.sniff", true)
+/*                .put("client.transport.sniff", true)*/
                 .build();
         transportClient = new PreBuiltTransportClient(settings)
                 .addTransportAddress(new TransportAddress(InetAddress.getByName(host), Integer.valueOf(port)));

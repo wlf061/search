@@ -35,6 +35,11 @@
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>org.elasticsearch.plugin</groupId>
+			<artifactId>transport-netty4-client</artifactId>
+			<version>${org.elasticsearch.version}</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.elasticsearch.client</groupId>
