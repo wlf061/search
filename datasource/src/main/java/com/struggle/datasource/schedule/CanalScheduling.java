@@ -25,7 +25,7 @@ public class CanalScheduling implements Runnable, ApplicationContextAware {
     @Resource
     private CanalConnector canalConnector;
 
-    @Scheduled(fixedDelay = 1000)
+    @Scheduled(fixedDelay = 500)
     @Override
     public void run() {
         /*每隔1秒执行*/

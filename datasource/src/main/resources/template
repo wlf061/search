@@ -1,0 +1,30 @@
+PUT _template/template_search
+{
+  "order" : 1,
+  "index_patterns" : ["search_*"],
+  "settings" : {
+    "number_of_shards" : 1,
+    "number_of_replicas" : 1,
+    "index.refresh_interval" : "60s"
+ },
+  "mappings" : {
+    "doc" : {
+      "_all" : { "enabled" : false},
+      "properties": {
+        "@timestamp": { "type": "date", "format": "date_optional_time||epoch_millis" },
+        "id":{"type":"integer", "index":true},
+        "prod_name": { "type": "keyword", "index" : true, "norms": true },
+        "prod_star": { "type": "long", "index" : true },
+		"prod_desc": {"type":"text", "index":true},
+		"create_time": {"type": "date"},
+		"update_time": {"type": "date"},
+		"prod_merchant": {"type":"keyword", "index":true},
+		"price": {"type":"float", "index": true},
+		"discount": {"type":"float", "index":true},
+		"prod_type": {"type":"integer", "index":true},
+		"max_age": {"type":"integer", "index":true},
+		"min_age": {"type":"integer", "index":true}
+     }
+   }
+ }
+}

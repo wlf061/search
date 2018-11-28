@@ -1,6 +1,7 @@
 package com.struggle.datasource.service.impl;
 
 import com.struggle.datasource.service.ElasticsearchService;
+import org.elasticsearch.action.index.IndexResponse;
 import org.elasticsearch.client.transport.TransportClient;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,7 @@ public class ElasticsearchServiceImpl implements ElasticsearchService{
     private TransportClient transportClient;
     @Override
     public void updateById(String index, String type, String id, Map<String, Object> dataMap) {
-        transportClient.prepareIndex(index, type, id).setSource(dataMap).get();
+        IndexResponse response = transportClient.prepareIndex(index, "doc", id).setSource(dataMap).get();
+        System.out.println(response);
     }
 }
