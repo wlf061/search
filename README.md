@@ -28,5 +28,7 @@ GET /search_data/_analyze
 
 1.6 查询链接：http://localhost:8080/search/queryContent?type=0&content=夹克
 
+1.7 框架流程 参考：https://www.e-learn.cn/content/qita/1224514
+
 
 
