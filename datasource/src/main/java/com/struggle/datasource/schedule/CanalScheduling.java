@@ -5,6 +5,8 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.CanalEntry.Entry;
 import com.alibaba.otter.canal.protocol.CanalEntry.EventType;
 import com.alibaba.otter.canal.protocol.Message;
+import com.struggle.datasource.event.CanalDeleteEvent;
+import com.struggle.datasource.event.CanalInsertEvent;
 import com.struggle.datasource.event.CanalUpdateEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,6 +67,12 @@ public class CanalScheduling implements Runnable, ApplicationContextAware {
         switch (type){
             case UPDATE:
                 applicationContext.publishEvent(new CanalUpdateEvent(entry));
+                break;
+            case INSERT:
+                applicationContext.publishEvent(new CanalInsertEvent(entry));
+                break;
+            case DELETE:
+                applicationContext.publishEvent(new CanalDeleteEvent(entry));
                 break;
              default:
                  break;

@@ -43,9 +43,9 @@ public abstract class CanalAbstractListener<EVENT extends CanalAbstractEvent> im
             if(column == null){
                 return;
             }
-            fieldValueMap.put(column.getName(),column.getIsNull() ? null : mappingService.getElasticsearchTypeObject(column.getMysqlType(), column.getValue()));
-        });
-        return fieldValueMap;
+        fieldValueMap.put(column.getName(),column.getIsNull() ? null : mappingService.getElasticsearchTypeObject(column.getMysqlType(), column.getValue()));
+    });
+    return fieldValueMap;
     }
 
     protected abstract void doSync(String index, String type, RowData rowData);
