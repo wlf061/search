@@ -1,0 +1,68 @@
+PUT _template/template_search
+{
+"order": 1,
+"index_patterns": ["search_*"],
+"settings": {
+"number_of_shards": 1,
+"number_of_replicas": 1,
+"analysis": {
+"filter": {
+"my_synonym_filter":{
+"type": "synonym",
+"synonyms_path": "ik/synonym.txt"
+}
+},
+"analyzer": {
+"ik_syno": {
+"type": "custom",
+"tokenizer": "ik_smart",
+"filter":["my_synonym_filter"]
+}
+}
+}
+},
+"mappings": {
+"doc": {
+"_all": {"enabled": false},
+"properties": {
+"@timestamp": {
+"type": "date", "format": "date_optional_time||epoch_millis"
+},
+"id": {
+"type": "integer", "index": true
+},
+"prod_name": {
+"type": "text", "index": true, "analyzer": "ik_syno",
+"search_analyzer": "ik_syno", "boost": 6
+},
+"prod_star": {"type": "long", "index": true },
+"prod_desc": {
+"type": "text",
+"index": true,
+"analyzer": "ik_syno",
+"search_analyzer": "ik_syno", "boost": 4
+},
+"create_time": {
+"type": "date"
+},
+"update_time": {
+"type": "date"},
+"prod_merchant": {
+"type": "text", "index": true, "analyzer": "ik_syno",
+"search_analyzer": "ik_syno", "boost": 2
+},
+"price": {
+"type": "float", "index": true
+},
+"discount": {"type": "float", "index": true},
+"prod_type": {"type": "integer", "index": true},
+"max_age": {
+"type": "integer", "index": true
+},
+"min_age": {
+"type": "integer", "index": true
+}
+}
+}
+}
+}
