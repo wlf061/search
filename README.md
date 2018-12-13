@@ -30,5 +30,8 @@ GET /search_data/_analyze
 
 1.7 框架流程 参考：https://www.e-learn.cn/content/qita/1224514
 
+### 4. todolist
+- [ ] 全量同步大数据优化 （jennifer）
+
 
 
