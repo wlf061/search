@@ -1,0 +1,51 @@
+# grade (0-4)	queryid	docId	title
+# 
+# Add your keyword strings below, the feature script will
+# Use them to populate your query templates
+#
+# qid:1: 夹克
+# qid:2: 茄克
+# qid:3: 儿童
+# qid:4: 羽绒服
+# qid:5: 太阳镜
+# qid:6: 眼镜
+# qid:7: 雅诗兰黛
+#
+# https://sourceforge.net/p/lemur/wiki/RankLib%20File%20Format/
+#
+#
+4	qid:1 #	4   夹克
+2	qid:1 #	5	夹克
+0	qid:1 #	10	夹克
+2	qid:1 #	11	夹克
+4	qid:2 #	4	茄克
+2	qid:2 #	5	茄克
+0	qid:2 # 12	茄克
+0	qid:2 #	11	茄克
+0	qid:3 #	4	儿童
+3	qid:3 #	8	儿童
+2	qid:3 #	5	儿童
+4	qid:4 #	9	羽绒服
+3	qid:4 #	6	羽绒服
+3	qid:4 #	7	羽绒服
+3	qid:4 #	8	羽绒服
+0	qid:4 #	5	羽绒服
+0	qid:4 #	11	羽绒服
+0	qid:4 #	11	羽绒服
+0	qid:4 #	11	羽绒服
+0	qid:4 #	11	羽绒服
+0	qid:4 #	11	羽绒服
+4	qid:5 #	11	太阳镜
+3	qid:5 #	10	太阳镜
+0	qid:5 #	4	太阳镜
+0	qid:5 #	6	太阳镜
+0	qid:5 #	9	太阳镜
+4	qid:6 #	10	眼镜
+3	qid:6 #	11	眼镜
+0	qid:6 #	4	眼镜
+0	qid:6 #	6	眼镜
+4	qid:7 #	14	雅诗兰黛
+2	qid:7 #	13	雅诗兰黛
+1	qid:7 #	12	雅诗兰黛
+0	qid:7 #	9	雅诗兰黛
+

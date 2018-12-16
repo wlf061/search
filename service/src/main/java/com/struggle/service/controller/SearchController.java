@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @Controller
@@ -24,7 +25,7 @@ public class SearchController {
 
     @RequestMapping("/queryContent")
     @ResponseBody
-    public Response<ProductInfo> queryContent(@RequestParam(value = "type") int type, @RequestParam(value = "content") String content) {
+    public Response<List<ProductInfo>> queryContent(@RequestParam(value = "type") int type, @RequestParam(value = "content") String content) {
         return elasticsearchService.searchResult(type, content);
     }
 
