@@ -29,19 +29,19 @@ public class ElasticsearchServiceImpl implements ElasticsearchService{
     private TransportClient transportClient;
     @Override
     public void updateById(String index, String type, String id, Map<String, Object> dataMap) {
-        IndexResponse response = transportClient.prepareIndex("test-search", "doc", id).setSource(dataMap).get();
+        IndexResponse response = transportClient.prepareIndex(index, "doc", id).setSource(dataMap).get();
         System.out.println(response);
     }
 
     @Override
     public void deleteById(String index, String type, String id) {
-        DeleteResponse response = transportClient.prepareDelete("test-search", "doc", id).get();
+        DeleteResponse response = transportClient.prepareDelete(index, "doc", id).get();
         System.out.println(response);
     }
 
     @Override
     public void insertById(String index, String type, String id, Map<String, Object> dataMap) {
-        IndexResponse response = transportClient.prepareIndex("test-search", "doc", id).setSource(dataMap).get();
+        IndexResponse response = transportClient.prepareIndex(index, "doc", id).setSource(dataMap).get();
         System.out.println(response);
     }
 
