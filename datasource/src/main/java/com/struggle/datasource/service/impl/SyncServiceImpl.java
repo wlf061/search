@@ -20,7 +20,7 @@ import java.util.concurrent.*;
  */
 @Service
 public class SyncServiceImpl implements SyncService, InitializingBean, Destroyable {
-    private static final int STEP = 2;
+    private static final int STEP = 1000;
 
     @Resource
     JdbcDao jdbcDao;
@@ -36,14 +36,15 @@ public class SyncServiceImpl implements SyncService, InitializingBean, Destroyab
         String table = syncTableRequest.getTable();
         List list = jdbcDao.findAll(database, table);
         elasticsearchService.batchInsert("test-search", "doc", "id", list);
+//        elasticsearchService.batchInsert(database, table, "id", list);
     }
 
     @Override
     public void syncDataByTableByThreadpool(SyncTableRequest syncTableRequest) {
         String database = syncTableRequest.getDatabase();
         String table = syncTableRequest.getTable();
-        Long minId = jdbcDao.selectMinPK("id", "datasearch", "prod_info");
-        Long maxId = jdbcDao.selectMaxPK("id", "datasearch", "prod_info");
+        Long minId = jdbcDao.selectMinPK("id", database, table);
+        Long maxId = jdbcDao.selectMaxPK("id", database, table);
 
 
         Long tempId = minId;
@@ -51,12 +52,12 @@ public class SyncServiceImpl implements SyncService, InitializingBean, Destroyab
             final Long finalTempId = tempId;
             threadPool.submit(()->{
                 Long value = finalTempId + STEP;
-                List list = jdbcDao.findDataList("datasearch", "prod_info", finalTempId, value);
+                List list = jdbcDao.findDataList(database, table, finalTempId, value);
+//                elasticsearchService.batchInsert(database, table, "id", list);
                 elasticsearchService.batchInsert("test-search", "doc", "id", list);
                 System.out.println(Thread.currentThread().getName() + "from " + finalTempId + "to " + value);
             });
             tempId = tempId + STEP;
-
         }
 
     }

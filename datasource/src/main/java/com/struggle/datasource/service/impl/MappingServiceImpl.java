@@ -8,6 +8,7 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -19,6 +20,8 @@ import java.util.Optional;
 public class MappingServiceImpl implements MappingService, InitializingBean {
     private static final Logger logger = LoggerFactory.getLogger(MappingServiceImpl.class);
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+    private static final DateTimeFormatter dataFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private Map<String, Converter> mysqlTypeElasticsearchTypeMapping;
 
@@ -36,7 +39,7 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
         mysqlTypeElasticsearchTypeMapping.put("text", data -> data);
         mysqlTypeElasticsearchTypeMapping.put("blob", data -> data);
         mysqlTypeElasticsearchTypeMapping.put("int", Long::valueOf);
-        mysqlTypeElasticsearchTypeMapping.put("date", data -> LocalDateTime.parse(data, formatter));
+        mysqlTypeElasticsearchTypeMapping.put("date", data -> LocalDate.parse(data, dataFormatter));
         mysqlTypeElasticsearchTypeMapping.put("time", data -> LocalDateTime.parse(data, formatter));
         mysqlTypeElasticsearchTypeMapping.put("float", Double::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("double", Double::valueOf);

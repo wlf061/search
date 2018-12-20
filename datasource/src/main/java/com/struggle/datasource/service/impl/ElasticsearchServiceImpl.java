@@ -9,13 +9,16 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * 类的描述
@@ -47,11 +50,20 @@ public class ElasticsearchServiceImpl implements ElasticsearchService{
 
     @Override
     public void batchInsert(String index, String type, String column, List<Map> list) {
+        System.out.println(LocalDateTime.now());
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         BulkRequestBuilder bulkRequestBuilder = transportClient.prepareBulk();
         list.forEach(data->{
-            String time = df.format((Timestamp)data.get("create_time"));
-            data.put("create_time", LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            data.forEach((key, value)->{
+                if (value instanceof Timestamp){
+//                    String time = df.format((Timestamp)data.get(key));
+//                    data.put(key, LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                    data.put(key, LocalDateTime.ofInstant(((Timestamp) value).toInstant(), ZoneId.systemDefault()));
+                }else if (value instanceof Date){
+                    Date d = (Date)value;
+                    data.put(key, d.toLocalDate());
+                }
+            });
             bulkRequestBuilder.add(transportClient.prepareIndex(index, type, data.get(column).toString()).setSource(data));
         });
 
@@ -59,5 +71,6 @@ public class ElasticsearchServiceImpl implements ElasticsearchService{
         if (bulkResponse.hasFailures()){
             System.out.println(bulkResponse.buildFailureMessage());
         }
+        System.out.println(LocalDateTime.now());
     }
 }
