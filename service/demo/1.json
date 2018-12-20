@@ -1,0 +1,15 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+			                "match" : {
+                  "prod_name" : "{{keywords}}"
+                }
+      },"functions": [
+        {"filter": {"term": {
+          "prod_name": "{{keywords}}"
+        }},"weight": 4}
+      ]
+            }
+    }
+  }

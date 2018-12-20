@@ -1,0 +1,16 @@
+{
+    "query": {
+        "function_score": {
+                      "query": {
+                "match_all": {}
+            },
+            "functions": [{            "field_value_factor": {
+                "field": "prod_star",
+                "modifier": "ln1p",
+                "missing": 1
+            }
+
+        }]
+        }
+    }
+}

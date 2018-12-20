@@ -1,7 +1,5 @@
 package com.struggle.service.constant;
 
-import static javafx.scene.input.KeyCode.O;
-
 /**
  * 类的描述
  *
@@ -16,7 +14,8 @@ public enum RequestType {
 
     ORDER_CREATETIME(2,"更新时间"),
 
-    ORDER_COMPLEX(3,"综合排序");
+    ORDER_COMPLEX_MODEL(3,"综合排序使用Ranklib模型"),
+    ORDER_COMPLEX(4,"综合排序使用ES 的score function");
 
     private int code;
     private String desc;

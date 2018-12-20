@@ -10,13 +10,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Set;
 
 /****
  *
  * */
 public class FileFormat {
 
-    public static void main(String[] args) throws IOException {
+    public static void formatFile(String originFile, String destFile, Set<Integer> deleteIndex){
         try {
             StringBuffer sb = new StringBuffer("");
 
@@ -24,17 +25,20 @@ public class FileFormat {
              * 读取完整文件, 替换每一行中的空格为逗号
              */
             System.out.println(ResourceUtils.getURL("classpath:").getPath());
-            Reader reader = new FileReader(ResourceUtils.getURL("classpath:").getPath()+"origin_syno.txt");
+            Reader reader = new FileReader(ResourceUtils.getURL("classpath:").getPath()+originFile);
             BufferedReader bufferedReader = new BufferedReader(reader);
             String string = null;
 
             //写文件
-            Writer writer = new FileWriter(ResourceUtils.getURL("classpath:").getPath()+"synonym.txt");
+            Writer writer = new FileWriter(ResourceUtils.getURL("classpath:").getPath()+destFile);
             BufferedWriter bw = new BufferedWriter(writer);
-
+            int pageNum = 0;
             while ((string = bufferedReader.readLine()) != null) {
-                bw.write(string.replace(" ",","));
-                bw.newLine();
+                pageNum++;
+                if(!deleteIndex.contains(pageNum)){
+                    bw.write(string);
+                    bw.newLine();
+                }
             }
             bw.close();
             writer.close();
@@ -47,5 +51,6 @@ public class FileFormat {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }

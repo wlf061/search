@@ -1,0 +1,15 @@
+{
+  "query": {
+    "function_score": {
+      "query": {
+			                "match" : {
+                  "prod_merchant" : "{{keywords}}"
+                }
+      },"functions": [
+        {"filter": {"term": {
+          "prod_merchant": "{{keywords}}"
+        }},"weight": 1}
+      ]
+            }
+    }
+  }
